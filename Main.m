@@ -1,8 +1,18 @@
 %--------------------------------------------------------------------------
+% Main.m
+%
+% Description: This program first pulls the most recent data from Johns
+% Hopkins' Github account which contains the most up to date CDC and WHO
+% data. Using this data, a parser is used to gather the data for a country
+% or province of interest. Plots are created to visulize the current
+% outbreak of COVID19.
+%  
+% Author: Isaac Weintraub
+%--------------------------------------------------------------------------
 clear 
 clc
 close all
-
+% Population Information for Countries of Interest
 popUSA = 327.2e6;
 popOhio = 11.69e6;
 popSK = 51.47e6;
@@ -14,13 +24,19 @@ popIceland = 364260;
 popChina = 1.386e9;
 popNY = 8.623e6;
 
+%
+% Pull the most up-to-date information
+%
+
 % Uncomment or run this in the terminal the first time you run the code
 %!git clone https://github.com/CSSEGISandData/COVID-19.git
-
 cd COVID-19
 !git pull
 cd ..
 
+%
+% Import the data from CSV format to matlab cell or matrix 
+%
 
 cases     = importdata("COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv");
 deaths    = importdata("COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Deaths.csv");
