@@ -43,6 +43,28 @@ State = popStates.textdata(:,1);
 CountryShort = unique(Country);
 ProvinceShort = unique(Province);
 
+%% US STATES
+
+for i = 1:length(ProvinceShort)
+    provinceNameCell = ProvinceShort(i);
+    stateName = provinceNameCell{1};
+    isState = strcmp(State,stateName);
+    popState = popStates.data(isState);
+    for j = 3:size(cases.data,2)-1
+            casesState(j-2)     = sum(cases.data(isState,j));
+            deathsState(j-2)    = sum(deaths.data(isState,j));
+            recoveredState(j-2) = sum(recovered.data(isState,j));
+    end
+    if ~isempty(popState)
+    days = 1:length(casesState);
+    plotData(stateName,popState,casesState,deathsState,recoveredState)
+    figureOut = gcf;
+    saveas(figureOut,['Figures/' date '/' stateName '.jpg'])
+    close all
+    end
+end
+
+
 %%
 for i = 1:length(CountryShort)              % Parse through all countries
     countryNameCell = CountryShort(i);      % Gather the country's name
@@ -70,24 +92,5 @@ for i = 1:length(CountryShort)              % Parse through all countries
         close all
     end
 end
-%% US STATES
 
-for i = 1:length(ProvinceShort)
-    provinceNameCell = ProvinceShort(i);
-    stateName = provinceNameCell{1};
-    isState = strcmp(State,stateName);
-    popState = popStates.data(isState);
-    for j = 3:size(cases.data,2)-1
-            casesState(j-2)     = sum(cases.data(isState,j));
-            deathsState(j-2)    = sum(deaths.data(isState,j));
-            recoveredState(j-2) = sum(recovered.data(isState,j));
-    end
-    if ~isempty(popState)
-    days = 1:length(casesState);
-    plotData(stateName,popState,casesState,deathsState,recoveredState)
-    figureOut = gcf;
-    saveas(figureOut,['Figures/' date '/' stateName '.jpg'])
-    close all
-    end
-end
 
