@@ -73,6 +73,8 @@ disp('State with Most Cases:')
 disp(maxStateName)
 
 %%
+maxCountry = 0;
+maxCountryName = '';
 for i = 1:length(CountryShort)-1              % Parse through all countries
     countryNameCell = CountryShort(i);      % Gather the country's name
     countryName = countryNameCell{1};       % Convert to a string
@@ -93,11 +95,19 @@ for i = 1:length(CountryShort)-1              % Parse through all countries
             recoveredCountry(j-2) = sum(recovered.data(isCountry,j));
         end
         days = 1:length(casesCountry);
+        if 100*casesCountry(end)./popCountry > maxCountry
+            maxCountry = 100*casesCountry(end)./popCountry;
+            maxCountryName = countryName;
+            disp(countryName)
+            disp(100*casesCountry(end)./popCountry)
+        end
         plotData(countryName,popCountry,casesCountry,deathsCountry,recoveredCountry)
         figureOut = gcf;
         saveas(figureOut,['Figures/' date '/' countryName '.jpg'])
         close all
     end
 end
+disp('Country with Most Cases:')
+disp(maxCountryName)
 
 
