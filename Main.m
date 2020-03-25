@@ -14,6 +14,8 @@ clc
 close all
 % Population Information for Countries of Interest
 
+
+
 popUSA = 327.2e6; popUK = 66.44e6;
 popOH = 11.69e6;  popIsrael = 8.712e6;
 popFL = 21.3e6;   popTN = 6.77e6;
@@ -26,6 +28,8 @@ popIceland = 364260;
 popChina = 1.386e9;
 popNY = 8.623e6;
 popEarth = 7.53e9;
+
+
 
 %
 % Pull the most up-to-date information
