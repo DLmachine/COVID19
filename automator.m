@@ -65,7 +65,10 @@ for i = 1:length(State)             % loop throught all the states
         figureOut = gcf;
         saveas(figureOut,['Figures/' date '/' stateName '.jpg'])
         close all
-
+        plotDataRates(stateName,popState,casesState,deathsState,recoveredState)
+        figureOut = gcf;
+        saveas(figureOut,['Figures/' date '/Rate' stateName '.jpg'])
+        close all
     end
 end
 
@@ -104,6 +107,10 @@ for i = 1:length(CountryShort)-1              % Parse through all countries
         plotData(countryName,popCountry,casesCountry,deathsCountry,recoveredCountry)
         figureOut = gcf;
         saveas(figureOut,['Figures/' date '/' countryName '.jpg'])
+        close all
+        plotDataRates(countryName,popCountry,casesCountry,deathsCountry,recoveredCountry)
+        figureOut = gcf;
+        saveas(figureOut,['Figures/' date '/Rate' countryName '.jpg'])
         close all
     end
 end
