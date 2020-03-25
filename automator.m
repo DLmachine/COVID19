@@ -40,9 +40,10 @@ ProvinceShort = unique(Province);
 
 %% US STATES
 
-for i = 1:length(ProvinceShort)
-    provinceNameCell = ProvinceShort(i);
-    stateName = provinceNameCell{1};
+for i = 1:length(ProvinceShort)             % loop throught all the states
+    provinceNameCell = ProvinceShort(i);    % Gather the current cell
+    stateName = provinceNameCell{1};        % Convert to a string
+    % now stateName is a string which contains the current state
     isState = strcmp(State,stateName);
     popState = popStates.data(isState);
     for j = 3:size(cases.data,2)-1
