@@ -18,5 +18,8 @@ data from the world bank. The Johns Hopkins' data contains the current number of
 Using this data and dividing by the total number of people in each country, plots for the percentage of population effected 
 are generated. It is important to generate a folder before the automator is run. A missing directory error can occur if you don't create a figure directory. I plan to fix this bug if time permits. In the meantime I hope you have all the data you need.
 
+## To Install
+```git clone http://www.github.com/isaacew/COVID19 --recurse-submodules```
+
 -Isaac
 
