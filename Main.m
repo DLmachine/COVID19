@@ -14,9 +14,9 @@ clc
 close all
 % Population Information for Countries of Interest
 
-popUSA = 327.2e6;
-popOH = 11.69e6;
-popFL = 21.3e6;
+popUSA = 327.2e6; popUK = 66.44e6;
+popOH = 11.69e6;  popIsrael = 8.712e6;
+popFL = 21.3e6;   popTN = 6.77e6;
 popSK = 51.47e6;
 popItaly =  60.48e6;
 popFr = 66.99e6;
@@ -50,8 +50,8 @@ Province = cases.textdata(:,1);
 % % %
 % % % Display the Country List Allow User to Select Country of Interest
 % % % 
-% % CountryShort = unique(Country);
-% % ProvinceShort = unique(Province);
+CountryShort = unique(Country)
+ProvinceShort = unique(Province)
 % % list = CountryShort;
 % % [choice,~] = listdlg('ListString',list);
 % % isCountry = strcmp(Country,CountryShort(choice));     % Generate Index of Values for the chosen country
@@ -70,8 +70,11 @@ isUSA = strcmp(Country,'US');
 %isUSA(200:end) = 0;      % Ignore minor outlaying islands
 isUSA = isUSA(2:end);     % Remove the header
 % Ohio
-isOhio = strcmp(Province,'Ohio');
-isOhio = isOhio(2:end);
+isOH = strcmp(Province,'Ohio');
+isOH = isOH(2:end);
+% Tennessee
+isTN = strcmp(Province,'Tennessee');
+isTN = isTN(2:end);
 % FLorida
 isFL   = strcmp(Province,'Florida');
 isFL   = isFL(2:end);
@@ -99,6 +102,12 @@ isFrance = isFrance(2:end);
 % Iceland
 isIceland = strcmp(Country,'Iceland');
 isIceland = isIceland(2:end);
+% United Kingdom
+isUK = strcmp(Country,'United Kingdom');
+isUK = isUK(2:end);
+% China
+isIsrael = strcmp(Country,'Israel');
+isIsrael = isIsrael(2:end);
 % Earth
 isEarth = ones(size(isUSA));
 isEarth = isEarth(2:end);
@@ -116,6 +125,14 @@ for i = 3:size(cases.data,2)-1
     deathsIceland(i-2)    = sum(deaths.data(isIceland,i));
     recoveredIceland(i-2) = sum(recovered.data(isIceland,i));
     
+    casesUK(i-2) = sum(cases.data(isUK,i));
+    deathsUK(i-2) = sum(deaths.data(isUK,i));
+    recoveredUK(i-2) = sum(recovered.data(isUK,i));
+    
+    casesIsrael(i-2) = sum(cases.data(isIsrael,i));
+    deathsIsrael(i-2) = sum(deaths.data(isIsrael,i));
+    recoveredIsrael(i-2) = sum(recovered.data(isIsrael,i));
+    
     casesItaly(i-2)     = sum(cases.data(isItaly,i));
     deathsItaly(i-2)    = sum(deaths.data(isItaly,i));
     recoveredItaly(i-2) = sum(recovered.data(isItaly,i));
@@ -124,9 +141,9 @@ for i = 3:size(cases.data,2)-1
     deathsChina(i-2)    = sum(deaths.data(isChina,i));
     recoveredChina(i-2) = sum(recovered.data(isChina,i));
     
-    casesOH(i-2)      = sum(cases.data(isOhio,i));
-    deathsOH(i-2)      = sum(deaths.data(isOhio,i));
-    recoveredOH(i-2)  = sum(recovered.data(isOhio,i));
+    casesOH(i-2)      = sum(cases.data(isOH,i));
+    deathsOH(i-2)      = sum(deaths.data(isOH,i));
+    recoveredOH(i-2)  = sum(recovered.data(isOH,i));
     
     casesFL(i-2)      = sum(cases.data(isFL,i));
     deathsFL(i-2)      = sum(deaths.data(isFL,i));
@@ -135,6 +152,11 @@ for i = 3:size(cases.data,2)-1
     casesNY(i-2)      = sum(cases.data(isNY,i));
     deathsNY(i-2)      = sum(deaths.data(isNY,i));
     recoveredNY(i-2)  = sum(recovered.data(isNY,i));
+    
+    casesTN(i-2)      = sum(cases.data(isTN,i));
+    deathsTN(i-2)      = sum(deaths.data(isTN,i));
+    recoveredTN(i-2)  = sum(recovered.data(isTN,i));
+    
     
     casesEarth(i-2)      = sum(cases.data(:,i));
     deathsEarth(i-2)     = sum(deaths.data(:,i));
@@ -157,9 +179,14 @@ plotData('USA',popUSA,casesUSA,deathsUSA,recoveredUSA)
 plotData('Iceland',popIceland,casesIceland,deathsIceland,recoveredIceland)
 plotData('Italy',popItaly,casesItaly,deathsItaly,recoveredItaly)
 plotData('China',popChina,casesChina,deathsChina,recoveredChina)
+plotData('United Kingdom',popUK,casesUK,deathsUK,recoveredUK)
+plotData('Israel',popIsrael,casesIsrael,deathsIsrael,recoveredIsrael)
 % States of USA
 plotData('Ohio',popOH,casesOH,deathsOH,recoveredOH)
 plotData('Florida',popFL,casesFL,deathsFL,recoveredFL)
 plotData('New York',popNY,casesNY,deathsNY,recoveredNY)
+plotData('Tennessee',popTN,casesTN,deathsTN,recoveredTN)
+
+
 
 
