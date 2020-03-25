@@ -32,6 +32,7 @@ pops      = importdata("population/data/population.csv");
 cases     = importdata("COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv");
 deaths    = importdata("COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Deaths.csv");
 recovered = importdata("COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Recovered.csv");
+popUSStates = importdata("USA.csv");
 % Gather a list of countries and provinces
 Country = cases.textdata(:,2);
 Province = cases.textdata(:,1);
@@ -40,14 +41,19 @@ Province = cases.textdata(:,1);
 CountryShort = unique(Country);
 ProvinceShort = unique(Province);
 
+%%
 for i = 1:length(CountryShort)              % Parse through all countries
     countryNameCell = CountryShort(i);      % Gather the country's name
     countryName = countryNameCell{1};       % Convert to a string
     isCountry = strcmp(Country,countryName);    % Selection vector
+    if strcmp(countryName,'US')
+        countryName = 'United States';
+    end
     isCountryPops = strcmp(pops.textdata(:,1),countryName);
     popsData =  pops.data(isCountryPops,:); % Get the data for that country for all years on record
     [~,b]= max(popsData(:,1));
     popCountry = popsData(b,2);
+
     if ~isempty(b)
         isCountry = isCountry(2:end);               % Remove header line
         for j = 3:size(cases.data,2)-1
@@ -62,7 +68,6 @@ for i = 1:length(CountryShort)              % Parse through all countries
         close all
     end
 end
-
-
+%%
 
 
