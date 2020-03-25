@@ -16,8 +16,8 @@ close all
 % Pull the most up-to-date information
 %
 % Uncomment or run this in the terminal the first time you run the code
-%!git clone https://github.com/CSSEGISandData/COVID-19.git
-%!git clone https://github.com/datasets/population.git
+!git submodule add https://github.com/CSSEGISandData/COVID-19.git
+!git submodule add https://github.com/datasets/population.git
 cd COVID-19
 !git pull
 cd ..
@@ -37,7 +37,7 @@ popStates = importdata("USA.csv");
 Country = cases.textdata(:,2);
 Province = cases.textdata(:,1);
 
-State = popStates.textdata(:,1);
+State = popStates.textdata(2:end,1);
 
 % Display the Country List Allow User to Select Country of Interest
 CountryShort = unique(Country);
