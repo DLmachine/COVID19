@@ -37,7 +37,7 @@ popStates = importdata("USA.csv");
 Country = cases.textdata(:,2);
 Province = cases.textdata(:,1);
 
-State = popStates.textdata(2:end,1);
+State = popStates.textdata(:,1);
 
 % Display the Country List Allow User to Select Country of Interest
 CountryShort = unique(Country);
