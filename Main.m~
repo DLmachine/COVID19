@@ -15,7 +15,7 @@ close all
 % Population Information for Countries of Interest
 
 popUSA = 327.2e6;
-popOH = 11.69e6;
+popOhio = 11.69e6;
 popFL = 21.3e6;
 popSK = 51.47e6;
 popItaly =  60.48e6;
@@ -124,9 +124,9 @@ for i = 3:size(cases.data,2)-1
     deathsChina(i-2)    = sum(deaths.data(isChina,i));
     recoveredChina(i-2) = sum(recovered.data(isChina,i));
     
-    casesOH(i-2)      = sum(cases.data(isOhio,i));
-    deathsOH(i-2)      = sum(deaths.data(isOhio,i));
-    recoveredOH(i-2)  = sum(recovered.data(isOhio,i));
+    casesOhio(i-2)      = sum(cases.data(isOhio,i));
+    deathsOhio(i-2)      = sum(deaths.data(isOhio,i));
+    recoveredOhio(i-2)  = sum(recovered.data(isOhio,i));
     
     casesFL(i-2)      = sum(cases.data(isFL,i));
     deathsFL(i-2)      = sum(deaths.data(isFL,i));
@@ -148,18 +148,83 @@ end
 days = 1:length(casesUSA);
 
 
-%
-% Plotting the Data
-% 
+%-% DATA FITTING
+% NY
+% fNY    = fit(days',casesNY','exp1');
+% fitNY  = @(x) fNY.a.*exp(fNY.b.*x);
+% fUSA   = fit(days(43:end)',casesUSA(43:end)','exp1');
+% fitUSA = @(x) fUSA.a.*exp(fUSA.b.*x);
+%-% DATA PLOTTING
+
 
 plotData('Earth',popEarth,casesEarth,deathsEarth,recoveredEarth)
 plotData('USA',popUSA,casesUSA,deathsUSA,recoveredUSA)
 plotData('Iceland',popIceland,casesIceland,deathsIceland,recoveredIceland)
 plotData('Italy',popItaly,casesItaly,deathsItaly,recoveredItaly)
 plotData('China',popChina,casesChina,deathsChina,recoveredChina)
-% States of USA
-plotData('Ohio',popOH,casesOH,deathsOH,recoveredOH)
-plotData('Florida',popFL,casesFL,deathsFL,recoveredFL)
-plotData('New York',popNY,casesNY,deathsNY,recoveredNY)
+
+plotData('Ohio',popOhio,casesOhio,deathsOhio,recoveredOhio)
+plotData('Florida',popFlorida,casesFlorida,deathsFlorida,recoveredOhio)
+
+
+
+
+%
+fig501 = figure(501); clf;
+hold on
+H1=area(0:90,1.0*ones(size(0:90)),'FaceColor',[1 0 0],'FaceAlpha',0.6,'EdgeColor','none');
+H1=area(0:90,0.10*ones(size(0:90)),'FaceColor',[1 1 1],'FaceAlpha',0.2,'EdgeColor','none');
+H1=area(0:90,0.01*ones(size(0:90)),'FaceColor',[1 1 1],'FaceAlpha',0.2,'EdgeColor','none');
+H1=area(0:90,0.001*ones(size(0:90)),'FaceColor',[1 1 1],'FaceAlpha',0.2,'EdgeColor','none');
+H1=area(0:90,0.0001*ones(size(0:90)),'FaceColor',[1 1 1],'FaceAlpha',0.2,'EdgeColor','none');
+H1=area(0:90,0.00001*ones(size(0:90)),'FaceColor',[1 1 1],'FaceAlpha',0.2,'EdgeColor','none');
+H1=area(0:90,0.000001*ones(size(0:90)),'FaceColor',[1 1 1],'FaceAlpha',0.2,'EdgeColor','none');
+H1=area(0:90,0.0000001*ones(size(0:90)),'FaceColor',[1 1 1],'FaceAlpha',0.2,'EdgeColor','none');
+text(2,1.6,['100% Pop: ' num2str(1.0*popFL)]);
+text(2,0.15,['10% Pop: ' num2str(0.1*popFL)]);
+text(2,0.015,['1% Pop: ' num2str(0.01*popFL)]);
+text(2,0.0015,['0.1% Pop: ' num2str(0.001*popFL)]);
+text(2,0.00015,['0.01% Pop: ' num2str(0.0001*popFL)]);
+text(length(casesFL)+3,casesFL(end)./popFL,['Cases: ' num2str(casesFL(end))]);
+text(length(deathsFL)+3,deathsFL(end)./popFL,['Deaths: ' num2str(deathsFL(end))]);
+p1 = semilogy(casesFL./popFL,'ko','DisplayName','Florida Confirmed Cases','MarkerSize',8);
+p2 = semilogy(deathsFL./popFL,'ks','DisplayName','Florida Confirmed Deaths','MarkerSize',8);
+p3 = semilogy(recoveredFL./popFL,'kp','DisplayName','Florida Confirmed Recovery','MarkerSize',10);
+fig501.Children.YScale = 'log';
+legend([p1 p2 p3])
+grid on
+title('Florida')
+ylabel('Percent of total Population, %')
+xlabel('Days Since Jan 22 2020')
+
+fig600 = figure(600); clf;
+hold on
+H1=area(0:90,1.0*ones(size(0:90)),'FaceColor',[1 0 0],'FaceAlpha',0.6,'EdgeColor','none');
+H1=area(0:90,0.10*ones(size(0:90)),'FaceColor',[1 1 1],'FaceAlpha',0.2,'EdgeColor','none');
+H1=area(0:90,0.01*ones(size(0:90)),'FaceColor',[1 1 1],'FaceAlpha',0.2,'EdgeColor','none');
+H1=area(0:90,0.001*ones(size(0:90)),'FaceColor',[1 1 1],'FaceAlpha',0.2,'EdgeColor','none');
+H1=area(0:90,0.0001*ones(size(0:90)),'FaceColor',[1 1 1],'FaceAlpha',0.2,'EdgeColor','none');
+H1=area(0:90,0.00001*ones(size(0:90)),'FaceColor',[1 1 1],'FaceAlpha',0.2,'EdgeColor','none');
+H1=area(0:90,0.000001*ones(size(0:90)),'FaceColor',[1 1 1],'FaceAlpha',0.2,'EdgeColor','none');
+H1=area(0:90,0.0000001*ones(size(0:90)),'FaceColor',[1 1 1],'FaceAlpha',0.2,'EdgeColor','none');
+text(2,1.6,['100% Pop: ' num2str(1.0*popNY)])
+text(2,0.15,['10% Pop: ' num2str(0.1*popNY)])
+text(2,0.015,['1% Pop: ' num2str(0.01*popNY)])
+text(2,0.0015,['0.1% Pop: ' num2str(0.001*popNY)])
+text(2,0.00015,['0.01% Pop: ' num2str(0.0001*popNY)])
+text(length(casesNY)+3,casesNY(end)./popNY,['Cases: ' num2str(casesNY(end))])
+text(length(deathsNY)+3,deathsNY(end)./popNY,['Deaths: ' num2str(deathsNY(end))])
+p1 = semilogy(casesNY./popNY,'ko','DisplayName','New York Confirmed Cases','MarkerSize',8);
+p2 = semilogy(deathsNY./popNY,'ks','DisplayName','New York Confirmed Deaths','MarkerSize',8);
+p3 = semilogy(recoveredNY./popNY,'kp','DisplayName','New York Confirmed Recovery','MarkerSize',10);
+%p4 = semilogy(days+35,fitNY(days),'r-','LineWidth',2)
+fig600.Children.YScale = 'log';
+legend([p1 p2 p3])
+grid on
+title('New York')
+ylabel('Percent of total Population, %')
+xlabel('Days Since Jan 22 2020')
+xlim([0 90])
+ylim([1e-8 1])
 
 
