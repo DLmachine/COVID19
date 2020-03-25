@@ -35,8 +35,10 @@ popEarth = 7.53e9;
 % Pull the most up-to-date information
 %
 
-% Uncomment or run this in the terminal the first time you run the code
-%!git clone https://github.com/CSSEGISandData/COVID-19.git
+% the first time you run the code you ned to add these repos
+!git submodule add https://github.com/CSSEGISandData/COVID-19.git
+!git submodule add https://github.com/datasets/population.git
+
 cd COVID-19
 !git pull
 cd ..
