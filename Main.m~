@@ -59,7 +59,7 @@ ProvinceShort = unique(Province);
 
 % USA
 isUSA = strcmp(Country,'US'); 
-isUSA(200:end) = 0;      % Ignore minor outlaying islands
+%isUSA(200:end) = 0;      % Ignore minor outlaying islands
 isUSA = isUSA(2:end);     % Remove the header
 % Ohio
 isOH = strcmp(Province,'Ohio');

@@ -20,6 +20,7 @@ close all
 % !git submodule add https://github.com/datasets/population.git
 !git submodule update --remote
 %%
+%
 % Import the data from CSV format to matlab cell or matrix 
 %
 pops      = importdata("population/data/population.csv");
@@ -38,42 +39,30 @@ CountryShort = unique(Country);
 ProvinceShort = unique(Province);
 
 %% US STATES
-maxState = 0;
-maxStateName = '';
-for i = 1:length(State)             % loop throught all the states
-    stateCell = State(i);        % Gather the current cell
-    stateName = stateCell{1};    % Convert to a string
-    % now stateName is a string which contains the current state
-    isProvince = strcmp(Province,stateName);
-    isProvince = isProvince(2:end);
-    isState    = strcmp(State,stateName);
-    if sum(isProvince) ~= 0
-        popState = popStates.data(isState);
-        for j = 3:size(cases.data,2)-1
-                casesState(j-2)     = sum(cases.data(isProvince,j));
-                deathsState(j-2)    = sum(deaths.data(isProvince,j));
-                recoveredState(j-2) = sum(recovered.data(isProvince,j));
-        end
-        days = 1:length(casesState);
-        if 100*casesState(end)./popState > maxState
-            maxState = 100*casesState(end)./popState;
-            maxStateName = stateName;
-            disp(stateName)
-            disp(100*casesState(end)./popState)
-        end
-        plotData(stateName,popState,casesState,deathsState,recoveredState)
-        figureOut = gcf;
-        saveas(figureOut,['Figures/' date '/' stateName '.jpg'])
-        close all
 
+for i = 1:length(ProvinceShort)             % loop throught all the states
+    provinceNameCell = ProvinceShort(i);    % Gather the current cell
+    stateName = provinceNameCell{1};        % Convert to a string
+    % now stateName is a string which contains the current state
+    isState = strcmp(State,stateName);
+    popState = popStates.data(isState);
+    for j = 3:size(cases.data,2)-1
+            casesState(j-2)     = sum(cases.data(isState,j));
+            deathsState(j-2)    = sum(deaths.data(isState,j));
+            recoveredState(j-2) = sum(recovered.data(isState,j));
+    end
+    if ~isempty(popState)
+    days = 1:length(casesState);
+    plotData(stateName,popState,casesState,deathsState,recoveredState)
+    figureOut = gcf;
+    saveas(figureOut,['Figures/' date '/' stateName '.jpg'])
+    close all
     end
 end
 
-disp('State with Most Cases:')
-disp(maxStateName)
 
 %%
-for i = 1:length(CountryShort)-1              % Parse through all countries
+for i = 1:length(CountryShort)              % Parse through all countries
     countryNameCell = CountryShort(i);      % Gather the country's name
     countryName = countryNameCell{1};       % Convert to a string
     isCountry = strcmp(Country,countryName);    % Selection vector
