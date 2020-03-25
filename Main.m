@@ -156,6 +156,7 @@ days = 1:length(casesUSA);
 % fitUSA = @(x) fUSA.a.*exp(fUSA.b.*x);
 %-% DATA PLOTTING
 
+
 fig1 = figure(1); clf;
 % CountryName = CountryShort(choice);
 % CountryName = CountryName{1};
