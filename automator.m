@@ -16,14 +16,9 @@ close all
 % Pull the most up-to-date information
 %
 % Uncomment or run this in the terminal the first time you run the code
-!git submodule add https://github.com/CSSEGISandData/COVID-19.git
-!git submodule add https://github.com/datasets/population.git
-cd COVID-19
-!git pull
-cd ..
-cd population
-!git pull
-cd ..
+% !git submodule add https://github.com/CSSEGISandData/COVID-19.git
+% !git submodule add https://github.com/datasets/population.git
+% !git submodule update --remote
 
 %
 % Import the data from CSV format to matlab cell or matrix 

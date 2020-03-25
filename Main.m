@@ -35,13 +35,20 @@ popEarth = 7.53e9;
 % Pull the most up-to-date information
 %
 
-% the first time you run the code you ned to add these repos
-!git submodule add https://github.com/CSSEGISandData/COVID-19.git
-!git submodule add https://github.com/datasets/population.git
+% Run this the first time
+% !git clone https://github.com/CSSEGISandData/COVID-19.git
+% !git clone https://github.com/datasets/population.git
+% !git submodule add https://github.com/CSSEGISandData/COVID-19.git
+% !git submodule add https://github.com/datasets/population.git
 
-cd COVID-19
-!git pull
-cd ..
+!git submodule update --remote
+
+% cd COVID-19
+% !git pull
+% cd ..
+% cd population
+% !git pull
+% cd ..
 
 %
 % Import the data from CSV format to matlab cell or matrix 
