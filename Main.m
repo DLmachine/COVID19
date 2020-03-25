@@ -40,15 +40,7 @@ popEarth = 7.53e9;
 % !git clone https://github.com/datasets/population.git
 % !git submodule add https://github.com/CSSEGISandData/COVID-19.git
 % !git submodule add https://github.com/datasets/population.git
-
 !git submodule update --remote
-
-% cd COVID-19
-% !git pull
-% cd ..
-% cd population
-% !git pull
-% cd ..
 
 %
 % Import the data from CSV format to matlab cell or matrix 
@@ -60,24 +52,11 @@ recovered = importdata("COVID-19/csse_covid_19_data/csse_covid_19_time_series/ti
 Country = cases.textdata(:,2);
 Province = cases.textdata(:,1);
 
-% % %
-% % % Display the Country List Allow User to Select Country of Interest
-% % % 
-CountryShort = unique(Country)
-ProvinceShort = unique(Province)
-% % list = CountryShort;
-% % [choice,~] = listdlg('ListString',list);
-% % isCountry = strcmp(Country,CountryShort(choice));     % Generate Index of Values for the chosen country
-% % isCountry = isCountry(2:end);           % Remove Header
-% % 
-% % 
-% % Population(choice)
-% % switch(choice)
-% %     case(162) % USA
-% %         popC = 327.2e6;
-% % end
 
-%
+% Display the Country List Allow User to Select Country of Interest
+CountryShort = unique(Country);
+ProvinceShort = unique(Province);
+
 % USA
 isUSA = strcmp(Country,'US'); 
 %isUSA(200:end) = 0;      % Ignore minor outlaying islands
@@ -124,8 +103,6 @@ isIsrael = isIsrael(2:end);
 % Earth
 isEarth = ones(size(isUSA));
 isEarth = isEarth(2:end);
-
-
 
 index = 0;
 for i = 3:size(cases.data,2)-1
@@ -175,18 +152,12 @@ for i = 3:size(cases.data,2)-1
     deathsEarth(i-2)     = sum(deaths.data(:,i));
     recoveredEarth(i-2)   = sum(recovered.data(:,i));
     
-%     casesC(i-2)         = sum(cases.data(isCountry,i));
-%     deathsC(i-2)        = sum(deaths.data(isCountry,i));
-%     recoveredC(i-2)     = sum(recovered.data(isCountry,i));
 end
-
 days = 1:length(casesUSA);
-
 
 %
 % Plotting the Data
 % 
-
 plotData('Earth',popEarth,casesEarth,deathsEarth,recoveredEarth)
 plotData('USA',popUSA,casesUSA,deathsUSA,recoveredUSA)
 plotData('Iceland',popIceland,casesIceland,deathsIceland,recoveredIceland)
