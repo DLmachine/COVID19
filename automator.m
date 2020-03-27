@@ -19,22 +19,24 @@ close all
 % !git submodule add https://github.com/CSSEGISandData/COVID-19.git
 % !git submodule add https://github.com/datasets/population.git
 !git submodule update --remote
-%%
+%
 % Import the data from CSV format to matlab cell or matrix 
 %
 pops      = importdata("population/data/population.csv");
-cases     = importdata("COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv");
-deaths    = importdata("COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Deaths.csv");
-recovered = importdata("COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Recovered.csv");
+cases     = importdata("COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv");
+deaths    = importdata("COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv");
+recovered = importdata("COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv");
 popStates = importdata("USA.csv");
 % Gather a list of countries and provinces
-Country = cases.textdata(:,2);
+Country_cas = cases.textdata(:,2);
+Country_dea = deaths.textdata(:,2);
+Country_rec = recovered.textdata(:,2);
 Province = cases.textdata(:,1);
 
 State = popStates.textdata(2:end,1);
 
 % Display the Country List Allow User to Select Country of Interest
-CountryShort = unique(Country);
+CountryShort = unique(Country_cas);
 ProvinceShort = unique(Province);
 
 %% US STATES
@@ -78,10 +80,15 @@ disp(maxStateName)
 %%
 maxCountry = 0;
 maxCountryName = '';
-for i = 1:length(CountryShort)-1              % Parse through all countries
+for i = 1:length(CountryShort)-1
+
+    % Parse through all countries
     countryNameCell = CountryShort(i);      % Gather the country's name
     countryName = countryNameCell{1};       % Convert to a string
-    isCountry = strcmp(Country,countryName);    % Selection vector
+    isCountryC = strcmp(Country_cas,countryName);    % Selection vector
+    isCountryD = strcmp(Country_dea,countryName);    % Selection vector
+    isCountryR = strcmp(Country_rec,countryName);    % Selection vector
+    
     if strcmp(countryName,'US')
         countryName = 'United States';
     end
@@ -90,13 +97,20 @@ for i = 1:length(CountryShort)-1              % Parse through all countries
     [~,b]= max(popsData(:,1));
     popCountry = popsData(b,2);
 
-    if ~isempty(b)
-        isCountry = isCountry(2:end);               % Remove header line
+    if ~isempty(b) % choose to only consider countries with population data
+        isCountryC = isCountryC(2:end);               % Remove header line
+        isCountryD = isCountryD(2:end);
+        isCountryR = isCountryR(2:end);
         for j = 3:size(cases.data,2)-1
-            casesCountry(j-2)     = sum(cases.data(isCountry,j));
-            deathsCountry(j-2)    = sum(deaths.data(isCountry,j));
-            recoveredCountry(j-2) = sum(recovered.data(isCountry,j));
+            casesCountry(j-2)     = sum(cases.data(isCountryC,j));          
         end
+        for j = 3:size(deaths.data,2)-1
+            deathsCountry(j-2)    = sum(deaths.data(isCountryD,j));
+        end
+        for j = 3:size(recovered.data,2)-1
+            recoveredCountry(j-2) = sum(recovered.data(isCountryR,j));
+        end
+        
         days = 1:length(casesCountry);
         if 100*casesCountry(end)./popCountry > maxCountry
             maxCountry = 100*casesCountry(end)./popCountry;
