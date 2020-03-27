@@ -85,6 +85,7 @@ for i = 1:length(CountryShort)-1
     % Parse through all countries
     countryNameCell = CountryShort(i);      % Gather the country's name
     countryName = countryNameCell{1};       % Convert to a string
+    
     isCountryC = strcmp(Country_cas,countryName);    % Selection vector
     isCountryD = strcmp(Country_dea,countryName);    % Selection vector
     isCountryR = strcmp(Country_rec,countryName);    % Selection vector
@@ -121,7 +122,7 @@ for i = 1:length(CountryShort)-1
         plotData(countryName,popCountry,casesCountry,deathsCountry,recoveredCountry)
         figureOut = gcf;
         saveas(figureOut,['Figures/' date '/' countryName '.jpg'])
-        close all
+
         plotDataRates(countryName,popCountry,casesCountry,deathsCountry,recoveredCountry)
         figureOut = gcf;
         saveas(figureOut,['Figures/' date '/Rate' countryName '.jpg'])
