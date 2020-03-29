@@ -1,5 +1,5 @@
 %--------------------------------------------------------------------------
-% Sandbox.m
+% Automator.m
 %
 % Description: This program first pulls the most recent data from Johns
 % Hopkins' Github account which contains the most up to date CDC and WHO
@@ -123,9 +123,15 @@ for i = 1:length(CountryShort)-1
         figureOut = gcf;
         saveas(figureOut,['Figures/' date '/' countryName '.jpg'])
 
-        plotDataRates(countryName,popCountry,casesCountry,deathsCountry,recoveredCountry)
-        figureOut = gcf;
-        saveas(figureOut,['Figures/' date '/Rate' countryName '.jpg'])
+%         plotDataRates(countryName,popCountry,casesCountry,deathsCountry,recoveredCountry)
+%         figureOut = gcf;
+%         saveas(figureOut,['Figures/' date '/Rate' countryName '.jpg'])
+        
+%         plotDataAccel(countryName,popCountry,casesCountry,deathsCountry,recoveredCountry)
+%         figureOut = gcf;
+%         saveas(figureOut,['Figures/' date '/Accel' countryName '.jpg'])
+%         close all
+        
         close all
     end
 end

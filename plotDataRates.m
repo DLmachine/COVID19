@@ -1,4 +1,4 @@
-function [] = plotData (Name,pop,cases,deaths,recovered)
+function [] = plotDataRates(Name,pop,cases,deaths,recovered)
 %--------------------------------------------------------------------------
 % plotData.m
 % 
