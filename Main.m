@@ -45,9 +45,9 @@ popEarth = 7.53e9;
 %
 % Import the data from CSV format to matlab cell or matrix 
 %
-cases     = importdata("COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv");
-deaths    = importdata("COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Deaths.csv");
-recovered = importdata("COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Recovered.csv");
+cases     = importdata("COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv");
+deaths    = importdata("COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv");
+recovered = importdata("COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv");
 
 Country = cases.textdata(:,2);
 Province = cases.textdata(:,1);
@@ -107,45 +107,45 @@ isEarth = isEarth(2:end);
 index = 0;
 for i = 3:size(cases.data,2)-1
     
-    casesUSA(i-2)     = sum(cases.data(isUSA,i)); 
-    deathsUSA(i-2)    = sum(deaths.data(isUSA,i));
-    recoveredUSA(i-2) = sum(recovered.data(isUSA,i));
-
-    casesIceland(i-2)     = sum(cases.data(isIceland,i));
-    deathsIceland(i-2)    = sum(deaths.data(isIceland,i));
-    recoveredIceland(i-2) = sum(recovered.data(isIceland,i));
-    
-    casesUK(i-2) = sum(cases.data(isUK,i));
-    deathsUK(i-2) = sum(deaths.data(isUK,i));
-    recoveredUK(i-2) = sum(recovered.data(isUK,i));
-    
-    casesIsrael(i-2) = sum(cases.data(isIsrael,i));
-    deathsIsrael(i-2) = sum(deaths.data(isIsrael,i));
-    recoveredIsrael(i-2) = sum(recovered.data(isIsrael,i));
-    
-    casesItaly(i-2)     = sum(cases.data(isItaly,i));
-    deathsItaly(i-2)    = sum(deaths.data(isItaly,i));
-    recoveredItaly(i-2) = sum(recovered.data(isItaly,i));
-
-    casesChina(i-2)     = sum(cases.data(isChina,i));
-    deathsChina(i-2)    = sum(deaths.data(isChina,i));
-    recoveredChina(i-2) = sum(recovered.data(isChina,i));
-    
-    casesOH(i-2)      = sum(cases.data(isOH,i));
-    deathsOH(i-2)      = sum(deaths.data(isOH,i));
-    recoveredOH(i-2)  = sum(recovered.data(isOH,i));
-    
-    casesFL(i-2)      = sum(cases.data(isFL,i));
-    deathsFL(i-2)      = sum(deaths.data(isFL,i));
-    recoveredFL(i-2)  = sum(recovered.data(isFL,i));
-    
-    casesNY(i-2)      = sum(cases.data(isNY,i));
-    deathsNY(i-2)      = sum(deaths.data(isNY,i));
-    recoveredNY(i-2)  = sum(recovered.data(isNY,i));
-    
-    casesTN(i-2)      = sum(cases.data(isTN,i));
-    deathsTN(i-2)      = sum(deaths.data(isTN,i));
-    recoveredTN(i-2)  = sum(recovered.data(isTN,i));
+%     casesUSA(i-2)     = sum(cases.data(isUSA,i)); 
+%     deathsUSA(i-2)    = sum(deaths.data(isUSA,i));
+%     recoveredUSA(i-2) = sum(recovered.data(isUSA,i));
+% 
+%     casesIceland(i-2)     = sum(cases.data(isIceland,i));
+%     deathsIceland(i-2)    = sum(deaths.data(isIceland,i));
+%     recoveredIceland(i-2) = sum(recovered.data(isIceland,i));
+%     
+%     casesUK(i-2) = sum(cases.data(isUK,i));
+%     deathsUK(i-2) = sum(deaths.data(isUK,i));
+%     recoveredUK(i-2) = sum(recovered.data(isUK,i));
+%     
+%     casesIsrael(i-2) = sum(cases.data(isIsrael,i));
+%     deathsIsrael(i-2) = sum(deaths.data(isIsrael,i));
+%     recoveredIsrael(i-2) = sum(recovered.data(isIsrael,i));
+%     
+%     casesItaly(i-2)     = sum(cases.data(isItaly,i));
+%     deathsItaly(i-2)    = sum(deaths.data(isItaly,i));
+%     recoveredItaly(i-2) = sum(recovered.data(isItaly,i));
+% 
+%     casesChina(i-2)     = sum(cases.data(isChina,i));
+%     deathsChina(i-2)    = sum(deaths.data(isChina,i));
+%     recoveredChina(i-2) = sum(recovered.data(isChina,i));
+%     
+%     casesOH(i-2)      = sum(cases.data(isOH,i));
+%     deathsOH(i-2)      = sum(deaths.data(isOH,i));
+%     recoveredOH(i-2)  = sum(recovered.data(isOH,i));
+%     
+%     casesFL(i-2)      = sum(cases.data(isFL,i));
+%     deathsFL(i-2)      = sum(deaths.data(isFL,i));
+%     recoveredFL(i-2)  = sum(recovered.data(isFL,i));
+%     
+%     casesNY(i-2)      = sum(cases.data(isNY,i));
+%     deathsNY(i-2)      = sum(deaths.data(isNY,i));
+%     recoveredNY(i-2)  = sum(recovered.data(isNY,i));
+%     
+%     casesTN(i-2)      = sum(cases.data(isTN,i));
+%     deathsTN(i-2)      = sum(deaths.data(isTN,i));
+%     recoveredTN(i-2)  = sum(recovered.data(isTN,i));
     
     
     casesEarth(i-2)      = sum(cases.data(:,i));
@@ -153,23 +153,23 @@ for i = 3:size(cases.data,2)-1
     recoveredEarth(i-2)   = sum(recovered.data(:,i));
     
 end
-days = 1:length(casesUSA);
+% days = 1:length(casesUSA);
 
 %
 % Plotting the Data
 % 
 plotData('Earth',popEarth,casesEarth,deathsEarth,recoveredEarth)
-plotData('USA',popUSA,casesUSA,deathsUSA,recoveredUSA)
-plotData('Iceland',popIceland,casesIceland,deathsIceland,recoveredIceland)
-plotData('Italy',popItaly,casesItaly,deathsItaly,recoveredItaly)
-plotData('China',popChina,casesChina,deathsChina,recoveredChina)
-plotData('United Kingdom',popUK,casesUK,deathsUK,recoveredUK)
-plotData('Israel',popIsrael,casesIsrael,deathsIsrael,recoveredIsrael)
-% States of USA
-plotData('Ohio',popOH,casesOH,deathsOH,recoveredOH)
-plotData('Florida',popFL,casesFL,deathsFL,recoveredFL)
-plotData('New York',popNY,casesNY,deathsNY,recoveredNY)
-plotData('Tennessee',popTN,casesTN,deathsTN,recoveredTN)
+% plotData('USA',popUSA,casesUSA,deathsUSA,recoveredUSA)
+% plotData('Iceland',popIceland,casesIceland,deathsIceland,recoveredIceland)
+% plotData('Italy',popItaly,casesItaly,deathsItaly,recoveredItaly)
+% plotData('China',popChina,casesChina,deathsChina,recoveredChina)
+% plotData('United Kingdom',popUK,casesUK,deathsUK,recoveredUK)
+% plotData('Israel',popIsrael,casesIsrael,deathsIsrael,recoveredIsrael)
+% % States of USA
+% plotData('Ohio',popOH,casesOH,deathsOH,recoveredOH)
+% plotData('Florida',popFL,casesFL,deathsFL,recoveredFL)
+% plotData('New York',popNY,casesNY,deathsNY,recoveredNY)
+% plotData('Tennessee',popTN,casesTN,deathsTN,recoveredTN)
 
 
 
