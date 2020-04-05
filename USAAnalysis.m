@@ -91,4 +91,73 @@ i = 1;
 disp('Country with Most Cases:')
 disp(maxCountryName)
 
+%% Regression Fit of the SIR Model to the COVID19 Outbreak
+clc; close all
+days = 1:200;
+% Initial Conditions
+S0 = popCountry;
+I0 = 5e-3;%casesCountry(1);
+R0 = 0;
+X0 = [S0;I0;R0];
+% Guess for parameters
+gamma = 0.01;
+beta  = 0.3;
+% Store into the structure of variables to pass
+const.beta = beta; 
+const.gamma = gamma;
+% Ode45
+tspan = [1 days(end)-1]; % time vector
+[TOUT,YOUT] = ode45(@(t,X)SIR(t,X,gamma,beta),tspan,X0)
+close all
+
+
+f99 = figure(99); clf;
+ plot(TOUT,YOUT,'LineWidth',3)
+ hold on
+ plot(1:length(casesCountry),casesCountry,'ko','MarkerSize',10)
+%  plot(40:length(casesCountry),I_indexed,'bx','MarkerSize',10)
+ f99.Children.YScale = 'log';
+ %ylim([0 3e5])
+ xlim([0 max(days)])
+ drawnow
+ title('United States')
+ legend('Susceptible','Infections','Recovered','CDC Data','Model Evaluation')
+ xlabel('Days Since 22 Jan 2020')
+ ylabel('Number of People')
+ 
+% % f98 = figure(98); clf;
+% % plot(TOUT,YOUT)
+% % hold on
+% % plot(1:length(casesCountry),casesCountry,'ko','MarkerSize',10)
+% % %ylim([0 3e5])
+% % xlim([0 max(days)])
+% % %f98.Children.Yaxis = 'log';
+% % %legend('S','I','R')
+% % % Generate Error
+% % %I_indexed = interp1(TOUT,YOUT(:,2),1:length(casesCountry));
+% % %plot(1:length(casesCountry),I_indexed,'bx','MarkerSize',10)
+% % error = abs(I_indexed-casesCountry);
+% % sumError = sum(error);
+
+%%
+clc
+gamma = 0.1; beta = 0.1;
+X0 = [gamma;beta];
+options = optimoptions('fmincon','Display','iter',...
+                       'Algorithm','sqp',...
+                       'MaxIterations',1e6,...
+                        'MaxFunctionEvaluations',1e6);
+
+Z = fmincon(@(X)myfun(X,casesCountry,popCountry),X0,[],[],[],[],[0.001 0.001],[10.0 10.0],[],options);
+%disp(Z(1))
+%disp(Z(2))
+grid on
+
+
+
+
+
+
+
+
 

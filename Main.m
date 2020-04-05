@@ -1,40 +1,33 @@
-%--------------------------------------------------------------------------
-% Main.m
-%
-% Description: This program first pulls the most recent data from Johns
+%=========================================================================
+% FileName:    	Main.m
+% Description: 	This program first pulls the most recent data from Johns
 % Hopkins' Github account which contains the most up to date CDC and WHO
 % data. Using this data, a parser is used to gather the data for a country
 % or province of interest. Plots are created to visulize the current
 % outbreak of COVID19.
-%  
-% Author: Isaac Weintraub
-%--------------------------------------------------------------------------
+% Author: 	Isaac Weintraub
+%=========================================================================
 clear 
 clc
 close all
 % Population Information for Countries of Interest
+popUSA 		= 327.2e6; 
+popUK 		= 66.44e6;
+popOH 		= 11.69e6;  
+popIsrael 	= 8.712e6;
+popFL 		= 21.3e6;   
+popTN 		= 6.77e6;
+popSK 		= 51.47e6;
+popItaly 	=  60.48e6;
+popFr 		= 66.99e6;
+popIran 	= 81.16e6;
+popSpain 	= 46.66e6;
+popIceland 	= 364260;
+popChina 	= 1.386e9;
+popNY 		= 8.623e6;
+popEarth 	= 7.53e9;
 
-
-
-popUSA = 327.2e6; popUK = 66.44e6;
-popOH = 11.69e6;  popIsrael = 8.712e6;
-popFL = 21.3e6;   popTN = 6.77e6;
-popSK = 51.47e6;
-popItaly =  60.48e6;
-popFr = 66.99e6;
-popIran = 81.16e6;
-popSpain = 46.66e6;
-popIceland = 364260;
-popChina = 1.386e9;
-popNY = 8.623e6;
-popEarth = 7.53e9;
-
-
-
-%
 % Pull the most up-to-date information
-%
-
 % Run this the first time
 % !git clone https://github.com/CSSEGISandData/COVID-19.git
 % !git clone https://github.com/datasets/population.git
