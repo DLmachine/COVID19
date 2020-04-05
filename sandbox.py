@@ -6,8 +6,8 @@ Created on Tue Jan 22 16:17:40 2019
 @author: isaac_weintraub_admin
 """
 
-import scipy as  # Import the SciPy Library/Modules
-import numpy as np #Import the NimPy Library/Modules
+import scipy as sp # Import the SciPy Library Modules
+import numpy as np # Import the NimPy Library Modules
 from matplotlib import pyplot as plt # We will need to generate plates later
 import pandas as pd
 print("imported packages...")
