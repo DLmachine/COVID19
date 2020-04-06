@@ -141,7 +141,7 @@ f99 = figure(99); clf;
 
 %%
 clc
-gamma = 0.1; beta = 0.1;
+gamma = 0.01; beta = 0.004;
 X0 = [gamma;beta];
 options = optimoptions('fmincon','Display','iter',...
                        'Algorithm','sqp',...
