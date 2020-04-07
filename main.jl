@@ -20,7 +20,56 @@ data_deathUSA   = CSV.read("COVID-19/csse_covid_19_data/csse_covid_19_time_serie
 data_casesGlobe = CSV.read("COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv",header=true)   # casess of COVID 19 around the globe
 data_deathGlobe = CSV.read("COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv",header=true)      # deaths in the Globe from COVID 19
 data_recovGlobe = CSV.read("COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv",header=true)   # recovered global COVID 19 Cases
+data_populGlobe = CSV.read("population/data/population.csv",header=true) # get the population data
 data_casesUSAstateList = data_casesUSA[:,7]       # Gather a list of all the states
+countryList = unique(data_populGlobe[:,1]) # Remove Duplicates
+
+n = size(countryList)[1]
+global casesC
+global deathC
+global recovC
+@showprogress 0.01 for i = 1:n              # show a progress meter and for loop through the countries
+    countryName = countryList[i]
+        year = maximum(data_populGlobe[data_populGlobe[:,1].==countryName,3])
+        select = data_populGlobe[:,1].==countryName
+        index = data_populGlobe[select,3].==year
+        selectPopulations = data_populGlobe[select,4]
+    countryPopulation = selectPopulations[index][1]
+    if countryName == "United States"
+        countryName = "US"
+    end
+    if sum(data_casesGlobe[:,2] .== countryName) > 0
+        #print(countryName*"\n")
+        index = data_casesGlobe[:,2] .== countryName
+        cases = data_casesGlobe[index,5:end]
+        casesMatrix = convert(Array, cases[1:end,:])
+        countryCases = sum(casesMatrix,dims=1)
+        # Plot the current state or provices
+        p1 = plot()
+        hspan!(p1,[0,1e2], color  = :red, alpha   = 0.6, labels = false);
+        hspan!(p1,[0,1e1], color  = :white, alpha = 0.1, labels = false);
+        hspan!(p1,[0,1e0], color  = :white, alpha = 0.1, labels = false);
+        hspan!(p1,[0,1e-1], color = :white, alpha = 0.1, labels = false);
+        hspan!(p1,[0,1e-2], color = :white, alpha = 0.1, labels = false);
+        hspan!(p1,[0,1e-3], color = :white, alpha = 0.1, labels = false);
+        hspan!(p1,[0,1e-4], color = :white, alpha = 0.1, labels = false);
+        hspan!(p1,[0,1e-5], color = :white, alpha = 0.1, labels = false);
+        hspan!(p1,[0,1e-6], color = :white, alpha = 0.1, labels = false);
+        scatter!(1:size(countryCases)[2],
+            100*countryCases[1,:]./countryPopulation,lab=countryName*" COVID Cases",
+            scale=:log10,
+            yticks = [1e-6,1e-5,1e-4,1e-3,1e-2,1e-1,1,1e1,1e2],
+            yaxis="Percent of Country", xaxis="Days since Jan 22",
+            marker =:o,
+            color =:red)
+        plot!(xscale=:identity,xticks=0:10:100)
+        xlims!((0,100))
+        ylims!((1e-6,100))
+        png(p1,"CountryFigures/$countryName.png")
+    end
+end
+
+
 n = size(data_popStates)[1]                  # the number of provinces and states of the USA
 global USACases
 global USApop
@@ -99,5 +148,7 @@ ylims!((1e-6,100))
 png(p2,"StateFigures/USA.png")
 print("Done")
 
+@showprogress 0.01 for i = 1:n               # show a progress meter and for loop through the states
 
+end
 
