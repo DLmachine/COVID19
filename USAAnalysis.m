@@ -26,12 +26,15 @@ pops      = importdata("population/data/population.csv");
 cases     = importdata("COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv");
 deaths    = importdata("COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv");
 recovered = importdata("COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv");
+states    = importdata("COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_US.csv");
+statesD    = importdata("COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_US.csv");
 popStates = importdata("USA.csv");
 % Gather a list of countries and provinces
 Country_cas = cases.textdata(:,2);
 Country_dea = deaths.textdata(:,2);
 Country_rec = recovered.textdata(:,2);
-Province = cases.textdata(:,1);
+Province = states.textdata(:,7);
+ProvinceD = statesD.textdata(:,7);
 
 State = popStates.textdata(2:end,1);
 
@@ -40,10 +43,22 @@ CountryShort = unique(Country_cas);
 ProvinceShort = unique(Province);
 
 
+for i = 1:length(State)
+    stateName = State(i);
+    stateName = stateName{1};
+    popState = popStates.data(i,1);
+    isState = strcmp(Province,stateName);
+    isState = isState(2:end);
+    stateData = states.data(isState,:);
+    stateDataDeath = statesD.data(isState,:);
+    casesState = sum(stateData,1);
+    casesStateD = sum(stateDataDeath,1);
+    close all
+    plot2(stateName,popState,casesState,casesStateD,[])
+end
 %
 maxCountry = 0;
 maxCountryName = '';
-
 i = 1;
     % Parse through all countries
     countryNameCell = CountryShort(i);      % Gather the country's name

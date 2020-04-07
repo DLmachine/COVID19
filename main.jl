@@ -8,12 +8,14 @@
 # 
 #
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-run(`git fetch`)    # Get the latest data
+run(`git submodule update --remote`)
+#run(`git fetch`)    # Get the latest data
 using CSV           # Need to read the CSV data
 using Plots         # Allows the genation of plots
 using DataFrames    # Used for handliong the csv file (contains strings and numbers)
 using ProgressMeter # Used for making the progress meeter
 pyplot()            # Use the python plotting backend
+include("covidPlot2.jl")
 data_popStates  = CSV.read("USA.csv",header=true)     # Read the population data from the united states
 data_casesUSA   = CSV.read("COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_US.csv",header=true)       # cases of COVID 19 in the USA
 data_deathUSA   = CSV.read("COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_US.csv",header=true)          # deaths in the USA from COVID 19
@@ -41,31 +43,20 @@ global recovC
     if sum(data_casesGlobe[:,2] .== countryName) > 0
         #print(countryName*"\n")
         index = data_casesGlobe[:,2] .== countryName
-        cases = data_casesGlobe[index,5:end]
+        
+		cases = data_casesGlobe[index,5:end]
+		death = data_deathGlobe[index,5:end]
+		#recov = data_recovGlobe[index,5:end]
+		
         casesMatrix = convert(Array, cases[1:end,:])
-        countryCases = sum(casesMatrix,dims=1)
-        # Plot the current state or provices
-        p1 = plot()
-        hspan!(p1,[0,1e2], color  = :red, alpha   = 0.6, labels = false);
-        hspan!(p1,[0,1e1], color  = :white, alpha = 0.1, labels = false);
-        hspan!(p1,[0,1e0], color  = :white, alpha = 0.1, labels = false);
-        hspan!(p1,[0,1e-1], color = :white, alpha = 0.1, labels = false);
-        hspan!(p1,[0,1e-2], color = :white, alpha = 0.1, labels = false);
-        hspan!(p1,[0,1e-3], color = :white, alpha = 0.1, labels = false);
-        hspan!(p1,[0,1e-4], color = :white, alpha = 0.1, labels = false);
-        hspan!(p1,[0,1e-5], color = :white, alpha = 0.1, labels = false);
-        hspan!(p1,[0,1e-6], color = :white, alpha = 0.1, labels = false);
-        scatter!(1:size(countryCases)[2],
-            100*countryCases[1,:]./countryPopulation,lab=countryName*" COVID Cases",
-            scale=:log10,
-            yticks = [1e-6,1e-5,1e-4,1e-3,1e-2,1e-1,1,1e1,1e2],
-            yaxis="Percent of Country", xaxis="Days since Jan 22",
-            marker =:o,
-            color =:red)
-        plot!(xscale=:identity,xticks=0:10:100)
-        xlims!((0,100))
-        ylims!((1e-6,100))
-        png(p1,"CountryFigures/$countryName.png")
+        deathMatrix = convert(Array, death[1:end,:])
+		#recovMatrix = convert(Array, recov[1:end,:])
+		
+		countryCases = sum(casesMatrix,dims=1)
+		countryDeath = sum(deathMatrix,dims=1)
+		#countryRecov = sum(recovMatrix,dims=1)
+		#covidPlot1(countryCases,countryPopulation,countryName) 	# Plot the Covid Data
+		covidPlot2(countryCases,countryDeath,countryPopulation,countryName)
     end
 end
 
