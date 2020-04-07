@@ -119,9 +119,10 @@ for i = 1:length(CountryShort)-1
             disp(countryName)
             disp(100*casesCountry(end)./popCountry)
         end
-        plotData(countryName,popCountry,casesCountry,deathsCountry,recoveredCountry)
+        %plotData(countryName,popCountry,casesCountry,deathsCountry,recoveredCountry)
+        plot2(countryName,popCountry,casesCountry,deathsCountry,recoveredCountry)
         figureOut = gcf;
-        saveas(figureOut,['Figures/' date '/' countryName '.jpg'])
+        saveas(figureOut,['Figures/' countryName '.jpg'])
 
 %         plotDataRates(countryName,popCountry,casesCountry,deathsCountry,recoveredCountry)
 %         figureOut = gcf;
