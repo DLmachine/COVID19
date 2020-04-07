@@ -100,8 +100,8 @@ I0 = 5e-3;%casesCountry(1);
 R0 = 0;
 X0 = [S0;I0;R0];
 % Guess for parameters
-gamma = 0.01;
-beta  = 0.3;
+gamma = 0.1191;
+beta  = 0.3720;
 % Store into the structure of variables to pass
 const.beta = beta; 
 const.gamma = gamma;
@@ -141,7 +141,7 @@ f99 = figure(99); clf;
 
 %%
 clc
-gamma = 0.01; beta = 0.004;
+gamma = 0.1; beta = 0.1;
 X0 = [gamma;beta];
 options = optimoptions('fmincon','Display','iter',...
                        'Algorithm','sqp',...

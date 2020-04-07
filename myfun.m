@@ -31,6 +31,8 @@ I_indexed = interp1(TOUT,YOUT(:,2),initDay:dayMax); % Line up model with data
  xlim([0 max(days)])
  drawnow
  title('United States')
+ disp(gamma)
+ disp(beta)
  legend('Susceptible','Infections','Recovered','CDC Data','Model Evaluation')
  xlabel('Days Since 22 Jan 2020')
  ylabel('Number of People')
