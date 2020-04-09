@@ -105,6 +105,9 @@ i = 1;
 
 disp('Country with Most Cases:')
 disp(maxCountryName)
+!git add .
+!git commit -m "added todays data"
+!git push
 
 %% Regression Fit of the SIR Model to the COVID19 Outbreak
 clc; close all
