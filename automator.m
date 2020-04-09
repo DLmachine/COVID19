@@ -140,6 +140,6 @@ disp('Country with Most Cases:')
 disp(maxCountryName)
 
 !git add .
-!git commit -m "added todays state data"
+!git commit -m "added todays Country data"
 !git push
 

@@ -116,6 +116,54 @@ ylabel('Acceleration of Confirmed Cases')
 xlabel('Rate of Confirmed Cases')
 saveas(fig4,["StateFigures/"+Name+"_CasesPhaseRate.png"])
 
-
+% fig4 = figure;
+% hold on
+% H1=area(0:100,1*ones(size(0:100)),'FaceColor',[1 0 0],...
+%     'FaceAlpha',0.6,'EdgeColor','none');
+% H1=area(0:100,0.1*ones(size(0:100)),'FaceColor',[1 1 1],...
+%     'FaceAlpha',0.2,'EdgeColor','none');
+% H1=area(0:100,.01*ones(size(0:100)),'FaceColor',[1 1 1],...
+%     'FaceAlpha',0.2,'EdgeColor','none');
+% H1=area(0:100,0.001*ones(size(0:100)),'FaceColor',[1 1 1],...
+%     'FaceAlpha',0.2,'EdgeColor','none');
+% H1=area(0:100,0.0001*ones(size(0:100)),'FaceColor',[1 1 1],...
+%     'FaceAlpha',0.2,'EdgeColor','none');
+% H1=area(0:100,0.00001*ones(size(0:100)),'FaceColor',[1 1 1],...
+%     'FaceAlpha',0.2,'EdgeColor','none');
+% H1=area(0:100,0.000001*ones(size(0:100)),'FaceColor',[1 1 1],...
+%     'FaceAlpha',0.2,'EdgeColor','none');
+% H1=area(0:100,0.0000001*ones(size(0:100)),'FaceColor',[1 1 1],...
+%     'FaceAlpha',0.2,'EdgeColor','none');
+% text(2.5,1,['100% Pop: ' num2str(pop)])
+% text(2.5,0.16,['10% Pop: ' num2str(floor(0.1*pop))])
+% text(2.5,0.016,['1% Pop: ' num2str(floor(0.01*pop))])
+% text(2.5,0.0016,['0.1% Pop: ' num2str(floor(0.001*pop))])
+% text(2.5,0.00016,['0.01% Pop: ' num2str(floor(0.0001*pop))])
+% text(length(cases)+3,cases(end)./pop,['Cases: ' num2str(cases(end))])
+% text(length(deaths)+3,deaths(end)./pop,['Deaths: ' num2str(deaths(end))])
+% p1 = semilogy(cases./pop - recovered./pop,'ko','DisplayName',[Name ' Active Cases'],'MarkerSize',8);
+% p2 = semilogy(deaths./pop,'ks','DisplayName',[Name ' Confirmed Deaths'],'MarkerSize',8);
+% if ~isempty(recovered)
+% ffig = gcf;
+% ffig.Children.YScale = 'log';
+% legend([p1 p2 p3],'location','NorthEast')
+% xlim([0 100])
+% ylim([1e-8,1])
+% grid on
+% title(Name)
+% ylabel('Fraction of total Population')
+% xlabel('Days Since Jan 22 2020')
+% else
+% ffig = gcf;
+% ffig.Children.YScale = 'log';
+% legend([p1 p2],'location','NorthEast')
+% xlim([0 100])
+% ylim([1e-8,1])
+% grid on
+% title(Name)
+% ylabel('Fraction of total Population')
+% xlabel('Days Since Jan 22 2020')
+% end
+% saveas(fig4,["StateFigures/"+Name+"_ActiveCases.png"])
 
 end

@@ -31,7 +31,7 @@ p1 = semilogy(Dcases,'ko','DisplayName',[Name ' Confirmed Cases/Day'],'MarkerSiz
 p2 = semilogy(Ddeaths,'ks','DisplayName',[Name ' Confirmed Deaths/Day'],'MarkerSize',8);
 p3 = semilogy(Drecovered,'kp','DisplayName',[Name ' Confirmed Recoveries/Day'],'MarkerSize',10);
 ffig = gcf;
-ffig.Children.YScale = 'log';
+ffig.Children.YScale = 'linear';
 legend([p1 p2 p3],'location','SouthEast')
 xlim([0 100])
 grid on
