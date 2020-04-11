@@ -93,8 +93,8 @@ Ddeaths = diff(deaths);
 plot(cases,Dcases,'k-o','DisplayName',[Name ' Confirmed Cases'],'MarkerSize',8);
 legend([p1],'location','NorthWest')
 grid on
-fig3.Children.XScale = 'log';
-fig3.Children.YScale = 'log';
+fig3.Children.XScale = 'linear';
+fig3.Children.YScale = 'linear';
 title(Name)
 ylabel('Rate Change of Cases')
 xlabel('Number of Confirmed Cases')

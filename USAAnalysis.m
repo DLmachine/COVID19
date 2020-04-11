@@ -19,6 +19,7 @@ close all
 % !git submodule add https://github.com/CSSEGISandData/COVID-19.git
 % !git submodule add https://github.com/datasets/population.git
 !git submodule update --remote
+statePlot = 1;
 %
 % Import the data from CSV format to matlab cell or matrix 
 %
@@ -42,7 +43,7 @@ State = popStates.textdata(2:end,1);
 CountryShort = unique(Country_cas);
 ProvinceShort = unique(Province);
 
-
+if statePlot
 for i = 1:length(State)
     stateName = State(i);
     stateName = stateName{1};
@@ -55,6 +56,7 @@ for i = 1:length(State)
     casesStateD = sum(stateDataDeath,1);
     close all
     plot2(stateName,popState,casesState,casesStateD,[])
+end
 end
 %
 maxCountry = 0;
@@ -105,9 +107,9 @@ i = 1;
 
 disp('Country with Most Cases:')
 disp(maxCountryName)
-!git add .
-!git commit -m "added todays state data"
-!git push
+% !git add .
+% !git commit -m "added todays state data"
+% !git push
 
 %% Regression Fit of the SIR Model to the COVID19 Outbreak
 clc; close all
